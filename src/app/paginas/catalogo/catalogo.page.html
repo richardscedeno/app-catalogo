@@ -1,0 +1,49 @@
+<!-- Componente header reutilizable -->
+<app-header titulo="Catalogo" micolor="warning"></app-header>
+
+
+<ion-content>
+
+  <ion-searchbar placeholder="Search by name" (ionChange)="search($event)"></ion-searchbar>
+
+  <ion-card *ngFor="let data of dataCatalogo | filtro:searchText:'nombre'" class="card-content">
+    
+    <div class="modelo">
+      <div class="modelo-name">{{data.nombre}}</div>
+      <div class="modelo-model">{{data.modelo}}</div>
+    </div>
+
+    <ion-slides pager="true" [options]="sliderConfig">
+      <ion-slide *ngFor="let img of data.fotos">
+        <ion-img [src]="img.imagen" class="image"></ion-img>
+      </ion-slide>
+    </ion-slides>
+
+    <ion-card class="colores">
+      <div class="title">COLORES:</div>
+
+      <div *ngFor="let color of data.colores">
+        <ion-item class="color" color={{color.color}}></ion-item>
+
+        <div>{{color.nombre}}</div>
+      </div>
+    </ion-card>
+
+    <ion-card class="tallas">
+      <div class="title">TALLAS:</div>
+
+      <div *ngFor="let talla of data.tallas" class="talla">{{talla.talla}}</div>
+    </ion-card>
+
+    <ion-card class="precio">
+      <div><span>PRECIO:</span> $ {{data.precio}}</div>
+    </ion-card>
+
+    <ion-button expand="block" color="dark">
+      <ion-icon name="cart"></ion-icon>
+      Add
+    </ion-button>
+
+  </ion-card>
+
+</ion-content>
